@@ -1,0 +1,40 @@
+name: 'Trigger Actions From Comments In a PR'
+description: Listen for special comments, or chatops commands in the comments of a PR
+author: Hamel Husain
+inputs:
+  TRIGGER_PHRASE:
+    description: this is the phrase in a PR comment that you want to trigger downstream Actions.  Example - "/deploy-app-test"
+    required: true
+  PR_ACKNOWLEDGEMENT_COMMENT:
+    description: an optional comment to make in the PR if a triggering comment is detected.  This is meant to provide immediate feedback to the user that the triggering comment was detected.
+    required: false
+    default: ""
+  PR_ACKNOWLEDGEMENT_LABEL:
+    description: an optional label to add to the PR if a triggering comment is detected.  This is meant to provide immediate feedback to the user that the triggering comment was detected.
+    required: false
+    default: ""
+  TEST_EVENT_PATH:
+    description: An alternate place to fetch the payload for testing and debugging when making changes to this Action.  This is set to they system environment variable $GITHUB_EVENT_PATH by default.
+    require: false
+    default: ""
+  DEBUG:
+    description: Setting this variable to any value will turn debug mode on. This prints the body of the comment to stdout.
+    require: false
+    default: ""
+outputs:
+  SHA:
+    description: The SHA of the branch on the PR at the time the triggering comment was made.
+  BRANCH_NAME:
+    description: The name of the branch corresponding to the PR.
+  PR_NUMBER:
+    description: The number of the PR, ex - https://github.com/{owner}/{repo}/pull/{PR_NUMBER}
+  COMMENTER_USERNAME:
+    description: The GitHub username of the person that made the triggering comment in the PR.
+  TRIGGERED:
+    description: A boolean value that is either `true` or `false` depending on if a triggering comment was made in a PR.
+branding:
+  color: 'white'
+  icon: 'git-pull-request'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

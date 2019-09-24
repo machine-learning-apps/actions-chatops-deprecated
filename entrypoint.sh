@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 shopt -s expand_aliases
-alias no_trigger="{ echo ::set-output name=triggered::false;  exit 0; }"
+alias no_trigger="{ echo ::set-output name=TRIGGERED::false;  exit 0; }"
 
 #check inputs
 if [[ -z "$GITHUB_TOKEN" ]]; then
@@ -43,7 +43,7 @@ fi
 
 # Query the GitHub API to get information about the PR for which the comment was made
 PR_NUMBER=$(jq -r ".issue.number" "$GITHUB_EVENT_PATH")
-GH_USER_HANDLE=$(jq -r ".comment.user.login" "$GITHUB_EVENT_PATH")
+COMMENTER_USERNAME=$(jq -r ".comment.user.login" "$GITHUB_EVENT_PATH")
 echo "Collecting information about PR #$PR_NUMBER of $GITHUB_REPOSITORY"
 
 URI=https://api.github.com
@@ -97,5 +97,5 @@ fi
 echo "::set-output name=SHA::${HEAD_SHA}"
 echo "::set-output name=BRANCH_NAME::${HEAD_BRANCH}"
 echo "::set-output name=PR_NUMBER::${PR_NUMBER}"
-echo "::set-output name=COMMENTER_HANDLE::${GH_USER_HANDLE}"
-echo "::set-output name=triggered::true"
+echo "::set-output name=COMMENTER_USERNAME::${COMMENTER_USERNAME}"
+echo "::set-output name=TRIGGERED::true"
