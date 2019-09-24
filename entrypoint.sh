@@ -14,6 +14,9 @@ if [[ -z "$INPUT_TRIGGER_PHRASE" ]]; then
 	exit 1
 fi
 
+echo "GH Event Path" $GITHUB_EVENT_PATH
+ls $GITHUB_EVENT_PATH
+
 # skip if trigger phase does not exist
 echo "Checking if comment contains '${INPUT_TRIGGER_PHRASE}' command..."
 COMMENT_BODY=$(jq -r ".comment.body" "$GITHUB_EVENT_PATH")
