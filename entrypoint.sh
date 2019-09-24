@@ -40,7 +40,7 @@ fi
 # Query the GitHub API to get information about the PR for which the comment was made
 PR_NUMBER=$(jq -r ".issue.number" "$GITHUB_EVENT_PATH")
 GH_USER_HANDLE=$(jq -r ".comment.user.login" "$GITHUB_EVENT_PATH")
-echo "Collecting information about PR #$PR_NUMBER of $GITHUB_REPOSITORY..."
+echo "Collecting information about PR #$PR_NUMBER of $GITHUB_REPOSITORY"
 
 URI=https://api.github.com
 API_HEADER="Accept: application/vnd.github.v3+json"
@@ -49,6 +49,8 @@ AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
           "${URI}/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER")
 
+echo "debug"
+echo "$pr_resp" | jq -r ".base.repo"
 
 BASE_REPO=$(echo "$pr_resp" | jq -r .base.repo.full_name)
 HEAD_REPO=$(echo "$pr_resp" | jq -r .head.repo.full_name)
