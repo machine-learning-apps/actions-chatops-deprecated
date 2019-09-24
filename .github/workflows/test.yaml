@@ -1,0 +1,12 @@
+name: Tests
+on: [push]
+
+jobs:
+  test-static-payload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: test
+        uses: ./
+          env:
+            GITHUB_EVENT_PATH: mock_data/payload.json
