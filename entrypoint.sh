@@ -73,7 +73,7 @@ if [ "$INPUT_PR_ACKNOWLEDGEMENT_COMMENT" ]; then
 
     # Create a comment with APIv3 # POST /repos/:owner/:repo/issues/:issue_number/comments
     curl -XPOST -sSL \
-        -d "{\"body\": \"$MESSAGE\"}" \
+        -d "{\"body\": \"$INPUT_PR_ACKNOWLEDGEMENT_COMMENT\"}" \
         -H "${AUTH_HEADER}" \
         -H "${API_HEADER}" \
         "${URI}/repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments"
