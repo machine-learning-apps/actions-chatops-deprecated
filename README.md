@@ -1,8 +1,8 @@
-![Actions Status](https://github.com/machine-learning-apps/actions-pr-commands/workflows/Tests/badge.svg)
+![Actions Status](https://github.com/machine-learning-apps/actions-chatops/workflows/Tests/badge.svg)
 
-# Trigger Actions From Comments In a PR
+# Trigger Actions With ChatOps (Comments In a PR)
 
-This action helps you trigger downstream actions with a custom command made via a comment in a pull request.  This Action listens to all comments made in pull requests and emits the output variable `triggered` as `true` (along with other variables) that you can use for branching downstream Actions.  Consider the below hello world example where you want a downstream action to trigger with the command `/trigger-something-with-this`
+This action helps you trigger downstream actions with a custom command made via a comment in a pull request, otherwhise known as [ChatOps](https://www.pagerduty.com/blog/what-is-chatops/).  This Action listens to all comments made in pull requests and emits the output variable `triggered` as `true` (along with other variables) that you can use for branching downstream Actions.  Consider the below hello world example where you want a downstream action to trigger with the command `/trigger-something-with-this`
 
 ```yaml
 name: Demo
@@ -16,7 +16,7 @@ jobs:
         # This step listens to all PR events for the triggering phrase
       - name: listen for PR Comments
         id: prcomm
-        uses: machine-learning-apps/actions-pr-commands@master
+        uses: machine-learning-apps/actions-chatops@master
         with:
           TRIGGER_PHRASE: "/trigger-something-with-this"
           PR_ACKNOWLEDGEMENT_LABEL: "demo-label"

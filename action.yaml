@@ -1,4 +1,4 @@
-name: 'Trigger Actions From Comments In a PR'
+name: 'ChatOps For Actions'
 description: Listen for special comments, or chatops commands in the comments of a PR
 author: Hamel Husain
 inputs:
@@ -34,7 +34,7 @@ outputs:
     description: A boolean value that is either `true` or `false` depending on if a triggering comment was made in a PR.
 branding:
   color: 'gray-dark'
-  icon: 'git-pull-request'
+  icon: 'message-square'
 runs:
   using: 'docker'
   image: 'Dockerfile'
