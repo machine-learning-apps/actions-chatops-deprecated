@@ -14,6 +14,10 @@ if [[ -z "$INPUT_TRIGGER_PHRASE" ]]; then
 	exit 1
 fi
 
+if [ "$TEST_EVENT_PATH" ]; then
+  GITHUB_EVENT_PATH=$TEST_EVENT_PATH 
+fi
+
 echo "GH Event Path" $GITHUB_EVENT_PATH
 ls $GITHUB_EVENT_PATH
 

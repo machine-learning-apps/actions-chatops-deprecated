@@ -6,11 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: copy
-        run: cp ${GITHUB_WORKSPACE}/mock_data/payload.json ${GITHUB_EVENT_PATH}
       - name: test
         uses: ./
         env:
-          GITHUB_EVENT_PATH: mock_data/payload.json
+          TEST_EVENT_PATH: mock_data/payload.json
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_TRIGGER_PHRASE: "/start-test-run"
