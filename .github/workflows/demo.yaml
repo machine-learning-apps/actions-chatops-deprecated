@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+        # This step listens to all PR events for the triggering phrase
       - name: listen for PR Comments
         id: prcomm
         uses: machine-learning-apps/actions-pr-commands@master
@@ -15,13 +16,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # This step clones the branch of the PR associated with the triggering phrase, but only if it is triggered.
       - name: clone branch of PR
         if: steps.prcomm.outputs.TRIGGERED == true
         uses: actions/checkout@master
         with:
           ref: ${{ steps.prcomm.outputs.SHA }}
 
-      - name: clone branch of PR
+      # This step is a toy example that illustrates how you can use outputs from the pr-command action
+      - name: print variables
         if: steps.prcomm.outputs.TRIGGERED == true
         run: echo "${USERNAME} made a triggering comment on PR# ${PR_NUMBER} for ${BRANCH_NAME}"
         env: 
