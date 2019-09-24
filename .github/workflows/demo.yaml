@@ -16,13 +16,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: clone branch of PR
-        if: ${{ steps.prcomm.outputs.TRIGGERED == true }}
+        if: steps.prcomm.outputs.TRIGGERED == true
         uses: actions/checkout@master
         with:
           ref: ${{ steps.prcomm.outputs.SHA }}
 
       - name: clone branch of PR
-        if: ${{ steps.prcomm.outputs.TRIGGERED == true }}
+        if: steps.prcomm.outputs.TRIGGERED == true
         run: echo "${USERNAME} made a triggering comment on PR# ${PR_NUMBER} for ${BRANCH_NAME}"
         env: 
           BRANCH_NAME: ${{ steps.prcomm.outputs.BRANCH_NAME }}
