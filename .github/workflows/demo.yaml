@@ -1,0 +1,32 @@
+name: Demo
+on: [issue_comment] # PRs == Issues in GitHub
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: listen for PR Comments
+        id: prcomm
+        uses: machine-learning-apps/actions-pr-commands@master
+        with:
+          TRIGGER_PHRASE: "/trigger-something-with-this"
+          PR_ACKNOWLEDGEMENT_LABEL: "demo-label"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: clone branch of PR
+        if: ${{ steps.prcomm.outputs.TRIGGERED == true }}
+        uses: actions/checkout@master
+        with:
+          ref: ${{ steps.prcomm.outputs.SHA }}
+
+      - name: clone branch of PR
+        if: ${{ steps.prcomm.outputs.TRIGGERED == true }}
+        run: echo "${USERNAME} made a triggering comment on PR# ${PR_NUMBER} for ${BRANCH_NAME}"
+        env: 
+          BRANCH_NAME: ${{ steps.prcomm.outputs.BRANCH_NAME }}
+          PR_NUMBER: ${{ steps.prcomm.outputs.PR_NUMBER }}
+          USERNAME: ${{ steps.prcomm.outputs.COMMENTER_USERNAME }}
+
+      
