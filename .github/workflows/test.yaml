@@ -11,3 +11,4 @@ jobs:
         env:
           GITHUB_EVENT_PATH: mock_data/payload.json
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_TRIGGER_PHRASE: "/start-test-run"
