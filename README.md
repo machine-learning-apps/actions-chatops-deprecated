@@ -2,7 +2,11 @@
 
 # Trigger Actions From Comments In a PR
 
-This action helps you trigger downstream actions with a custom command made via a comment in a pull request.  This Action listens to all comments made in a pull request and emits the output variable `triggered` as `true` when there is a match. Furthermore, this Action emits the following outputs that you can pass to downstream actions:
+This action helps you trigger downstream actions with a custom command made via a comment in a pull request.  This Action listens to all comments made in pull requests and emits the output variable `triggered` as `true` (along with other variables) that you can use for branching downstream Actions.  Consider the below hello world example of this Action:
+
+```bash
+
+```
 
 1. `SHA`: The SHA of the branch on the PR at the time the triggering comment was made.
 2. `BRANCH_NAME`: The name of the branch corresponding to the PR.
