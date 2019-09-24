@@ -30,4 +30,4 @@ This action helps you trigger downstream actions with a custom command made via 
 4. `COMMENTER_USERNAME`: The GitHub username of the person that made the triggering comment in the PR.
 5. `TRIGGERED`: this is a boolean value that is either `true` or `false` depending on if a triggering comment was made in a PR.
 
-These outputs are useful for downstream Actions that you would like to be triggered with your PR command. For example, you might decide to pass the `SHA` or the `BRANCH_NAME to the [actions/checkout](https://github.com/actions/checkout) Action as the `ref` input to clone the branch associated with the comment.
+These outputs are useful for downstream Actions that you want to trigger with your PR command. For example, you might decide to pass the `SHA` or the `BRANCH_NAME to the [actions/checkout](https://github.com/actions/checkout) Action as the `ref` input to clone the branch associated with the comment.
