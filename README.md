@@ -40,6 +40,8 @@ jobs:
           USERNAME: ${{ steps.prcomm.outputs.COMMENTER_USERNAME }}
 ```
 
+A demonstration of this in action can be found on [this PR]()
+
 ## Mandatory Inputs
 
 1. `TRIGGER_PHRASE`: The phrase in a PR comment that you want to trigger downstream Actions.  Example - "/deploy-app-test".
