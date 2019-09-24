@@ -6,7 +6,7 @@ This action helps you trigger downstream actions with a custom command made via 
 
 1. `SHA`: The SHA of the branch on the PR at the time the triggering comment was made.
 2. `BRANCH_NAME`: The name of the branch corresponding to the PR.
-3. `PR_NUMBER`: The number of the PR, ex: https://github.com/{owner}/{repo}/pull/{PR_NUMBER}
+3. `PR_NUMBER`: The number of the PR, ex: `https://github.com/{owner}/{repo}/pull/{PR_NUMBER}`.
 4. `COMMENTER_USERNAME`: The GitHub username of the person that made the triggering comment in the PR.
 5. `TRIGGERED`: this is a boolean value that is either `true` or `false` depending on if a triggering comment was made in a PR.
 
