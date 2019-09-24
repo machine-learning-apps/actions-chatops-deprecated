@@ -2,7 +2,9 @@
 
 # Trigger Actions With ChatOps (Comments In a PR)
 
-This action helps you trigger downstream actions with a custom command made via a comment in a pull request, otherwhise known as [ChatOps](https://www.pagerduty.com/blog/what-is-chatops/).  This Action listens to all comments made in pull requests and emits the output variable `triggered` as `true` (along with other variables) that you can use for branching downstream Actions.  Consider the below hello world example where you want a downstream action to trigger with the command `/trigger-something-with-this`
+This action helps you trigger downstream actions with a custom command made via a comment in a pull request, otherwhise known as [ChatOps](https://www.pagerduty.com/blog/what-is-chatops/).  This Action listens to all comments made in pull requests and emits the output variable `triggered` as `true` (along with other variables) that you can use for branching downstream Actions.  Consider the below toy example that triggers downstream actions with the command `/trigger-something-with-this`
+
+## Example Usage
 
 ```yaml
 name: Demo
@@ -62,6 +64,6 @@ A demonstration of this in action can be found on [this PR](https://github.com/m
 2. `BRANCH_NAME`: The name of the branch corresponding to the PR.
 3. `PR_NUMBER`: The number of the PR, ex: `https://github.com/{owner}/{repo}/pull/{PR_NUMBER}`.
 4. `COMMENTER_USERNAME`: The GitHub username of the person that made the triggering comment in the PR.
-5. `TRIGGERED`: this is a boolean value that is either `true` or `false` depending on if a triggering comment was made in a PR.
+5. `TRIGGERED`: this is a boolean value that is either `true` or `false` depending on if a triggering comment was detected in a PR.  This is an important outptut variable that you may want to condition downstream Actions to run on with an `if:` statement (see example at the beginning).
 
 These outputs are useful for downstream Actions that you want to trigger with your PR command. For example, you might decide to pass the `SHA` or the `BRANCH_NAME to the [actions/checkout](https://github.com/actions/checkout) Action as the `ref` input to clone the branch associated with the comment.
