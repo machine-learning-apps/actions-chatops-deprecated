@@ -33,7 +33,7 @@ outputs:
   TRIGGERED:
     description: A boolean value that is either `true` or `false` depending on if a triggering comment was made in a PR.
 branding:
-  color: 'white'
+  color: 'gray-dark'
   icon: 'git-pull-request'
 runs:
   using: 'docker'
