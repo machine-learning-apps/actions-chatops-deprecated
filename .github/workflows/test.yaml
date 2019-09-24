@@ -8,5 +8,5 @@ jobs:
       - uses: actions/checkout@master
       - name: test
         uses: ./
-          env:
-            GITHUB_EVENT_PATH: mock_data/payload.json
+        env:
+          GITHUB_EVENT_PATH: mock_data/payload.json
