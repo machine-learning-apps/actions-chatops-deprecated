@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 shopt -s expand_aliases
-alias no_trigger="echo ::set-output name=triggered::false && exit 0"
+alias no_trigger="{ echo ::set-output name=triggered::false;  exit 0; }"
 
 #check inputs
 if [[ -z "$GITHUB_TOKEN" ]]; then
@@ -24,7 +24,8 @@ ls $GITHUB_EVENT_PATH
 # skip if trigger phase does not exist
 echo "Checking if comment contains '${INPUT_TRIGGER_PHRASE}' command..."
 COMMENT_BODY=$(jq -r ".comment.body" "$GITHUB_EVENT_PATH")
-(jq -r ".comment.body" "$GITHUB_EVENT_PATH" | grep -q "${INPUT_TRIGGER_PHRASE}" ) || no_trigger
+echo "<comment-body> $COMMENT_BODY \n </comment-body>"
+echo "$COMMENT_BODY" | grep -q "${INPUT_TRIGGER_PHRASE}" || no_trigger
 
 # skip if not a PR
 echo "Checking if issue is a pull request..."
@@ -72,4 +73,3 @@ echo "::set-output name=BRANCH_NAME::${HEAD_BRANCH}"
 echo "::set-output name=PR_NUMBER::${PR_NUMBER}"
 echo "::set-output name=COMMENTER_HANDLE::${GH_USER_HANDLE}"
 echo "::set-output name=COMMENT_BODY::${COMMENT_BODY}"
-
