@@ -25,7 +25,7 @@ ls $GITHUB_EVENT_PATH
 echo "Checking if comment contains '${INPUT_TRIGGER_PHRASE}' command..."
 COMMENT_BODY=$(jq -r ".comment.body" "$GITHUB_EVENT_PATH")
 echo "COMMENT BODY: $COMMENT_BODY"
-echo $COMMENT_BODY | grep -q "${INPUT_TRIGGER_PHRASE}" || no_trigger
+(jq -r ".comment.body" "$GITHUB_EVENT_PATH" | grep -q "${INPUT_TRIGGER_PHRASE}" ) || no_trigger
 
 # skip if not a PR
 echo "Checking if issue is a pull request..."
