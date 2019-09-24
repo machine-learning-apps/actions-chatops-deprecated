@@ -10,3 +10,4 @@ jobs:
         uses: ./
         env:
           GITHUB_EVENT_PATH: mock_data/payload.json
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
