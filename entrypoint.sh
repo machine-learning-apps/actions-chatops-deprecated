@@ -24,7 +24,6 @@ ls $GITHUB_EVENT_PATH
 # skip if trigger phase does not exist
 echo "Checking if comment contains '${INPUT_TRIGGER_PHRASE}' command..."
 COMMENT_BODY=$(jq -r ".comment.body" "$GITHUB_EVENT_PATH")
-echo "COMMENT BODY: $COMMENT_BODY"
 (jq -r ".comment.body" "$GITHUB_EVENT_PATH" | grep -q "${INPUT_TRIGGER_PHRASE}" ) || no_trigger
 
 # skip if not a PR
