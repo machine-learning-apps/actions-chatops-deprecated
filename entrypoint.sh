@@ -49,19 +49,10 @@ AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
           "${URI}/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER")
 
-echo "debug"
-echo "$pr_resp" | jq -r ".base.repo"
-
 BASE_REPO=$(echo "$pr_resp" | jq -r .base.repo.full_name)
 HEAD_REPO=$(echo "$pr_resp" | jq -r .head.repo.full_name)
 HEAD_BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
 HEAD_SHA=$(echo "$pr_resp" | jq -r .head.sha)
-
-if [[ -z "$BASE_BRANCH" ]]; then
-	echo "Cannot get base branch information for PR #$PR_NUMBER!"
-	echo "API response: $pr_resp"
-	exit 1
-fi
 
 # ensure this is not a fork #
 if [[ "$BASE_REPO" != "$HEAD_REPO" ]]; then
