@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: copy
+        run: cp ${GITHUB_WORKSPACE}/mock_data/payload.json ${GITHUB_EVENT_PATH}
       - name: test
         uses: ./
         env:
