@@ -40,7 +40,7 @@ jobs:
           USERNAME: ${{ steps.prcomm.outputs.COMMENTER_USERNAME }}
 ```
 
-A demonstration of this in action can be found on [this PR](https://github.com/machine-learning-apps/actions-pr-commands/pull/5)
+A demonstration of this in action can be found on [this PR](https://github.com/machine-learning-apps/actions-pr-commands/pull/5).
 
 ## Mandatory Inputs
 
