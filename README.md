@@ -2,10 +2,42 @@
 
 # Trigger Actions From Comments In a PR
 
-This action helps you trigger downstream actions with a custom command made via a comment in a pull request.  This Action listens to all comments made in pull requests and emits the output variable `triggered` as `true` (along with other variables) that you can use for branching downstream Actions.  Consider the below hello world example of this Action:
+This action helps you trigger downstream actions with a custom command made via a comment in a pull request.  This Action listens to all comments made in pull requests and emits the output variable `triggered` as `true` (along with other variables) that you can use for branching downstream Actions.  Consider the below hello world example where you want a downstream action to trigger with the command `/trigger-something-with-this`
 
-```bash
+```yaml
+name: Demo
+on: [issue_comment] # PRs == Issues in GitHub
 
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+
+        # This step listens to all PR events for the triggering phrase
+      - name: listen for PR Comments
+        id: prcomm
+        uses: machine-learning-apps/actions-pr-commands@master
+        with:
+          TRIGGER_PHRASE: "/trigger-something-with-this"
+          PR_ACKNOWLEDGEMENT_LABEL: "demo-label"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # This step clones the branch of the PR associated with the triggering phrase, but only if it is triggered.
+      - name: clone branch of PR
+        if: steps.prcomm.outputs.TRIGGERED == true
+        uses: actions/checkout@master
+        with:
+          ref: ${{ steps.prcomm.outputs.SHA }}
+
+      # This step is a toy example that illustrates how you can use outputs from the pr-command action
+      - name: print variables
+        if: steps.prcomm.outputs.TRIGGERED == true
+        run: echo "${USERNAME} made a triggering comment on PR# ${PR_NUMBER} for ${BRANCH_NAME}"
+        env: 
+          BRANCH_NAME: ${{ steps.prcomm.outputs.BRANCH_NAME }}
+          PR_NUMBER: ${{ steps.prcomm.outputs.PR_NUMBER }}
+          USERNAME: ${{ steps.prcomm.outputs.COMMENTER_USERNAME }}
 ```
 
 ## Mandatory Inputs
