@@ -99,5 +99,3 @@ echo "::set-output name=BRANCH_NAME::${HEAD_BRANCH}"
 echo "::set-output name=PR_NUMBER::${PR_NUMBER}"
 echo "::set-output name=COMMENTER_HANDLE::${GH_USER_HANDLE}"
 echo "::set-output name=triggered::true"
-
-if 
