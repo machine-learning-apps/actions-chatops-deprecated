@@ -12,3 +12,4 @@ jobs:
           TEST_EVENT_PATH: mock_data/payload.json
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_TRIGGER_PHRASE: "/start-test-run"
+          INPUT_PR_ACKNOWLEDGEMENT_LABEL: "test-label"

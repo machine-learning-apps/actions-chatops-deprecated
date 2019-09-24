@@ -64,9 +64,40 @@ if [[ "$BASE_REPO" != "$HEAD_REPO" ]]; then
 	exit 1
 fi
 
+
+if [ "$INPUT_PR_ACKNOWLEDGEMENT_COMMENT" ]; then
+    URI=https://api.github.com
+    API_VERSION=v3
+    API_HEADER="Accept: application/vnd.github.${API_VERSION}+json"
+    AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+
+    # Create a comment with APIv3 # POST /repos/:owner/:repo/issues/:issue_number/comments
+    curl -XPOST -sSL \
+        -d "{\"body\": \"$MESSAGE\"}" \
+        -H "${AUTH_HEADER}" \
+        -H "${API_HEADER}" \
+        "${URI}/repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments"
+fi
+
+if [ "$INPUT_PR_ACKNOWLEDGEMENT_LABEL" ]; then
+    URI=https://api.github.com
+    API_VERSION=v3
+    API_HEADER="Accept: application/vnd.github.symmetra-preview.${API_VERSION}+json"
+    AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+
+    # Add a label with POST /repos/:owner/:repo/issues/:issue_number/labels
+    curl -XPOST -sSL \
+        -d "{\"labels\": [\"${INPUT_PR_ACKNOWLEDGEMENT_LABEL}\"]}" \
+        -H "${AUTH_HEADER}" \
+        -H "${API_HEADER}" \
+        "${URI}/repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/labels"
+fi
+
 # Emit output variables
 echo "::set-output name=SHA::${HEAD_SHA}"
 echo "::set-output name=BRANCH_NAME::${HEAD_BRANCH}"
 echo "::set-output name=PR_NUMBER::${PR_NUMBER}"
 echo "::set-output name=COMMENTER_HANDLE::${GH_USER_HANDLE}"
 echo "::set-output name=triggered::true"
+
+if 
