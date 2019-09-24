@@ -14,7 +14,7 @@ if [[ -z "$INPUT_TRIGGER_PHRASE" ]]; then
 	exit 1
 fi
 
-if [ "$TEST_EVENT_PATH" ]; then
+if [ "$INPUT_TEST_EVENT_PATH" ]; then
   GITHUB_EVENT_PATH=$TEST_EVENT_PATH 
 fi
 
@@ -24,7 +24,11 @@ ls $GITHUB_EVENT_PATH
 # skip if trigger phase does not exist
 echo "Checking if comment contains '${INPUT_TRIGGER_PHRASE}' command..."
 COMMENT_BODY=$(jq -r ".comment.body" "$GITHUB_EVENT_PATH")
-echo "<comment-body> $COMMENT_BODY \n </comment-body>"
+
+if [ "$DEBUG" ]; then
+  echo "<comment-body> $COMMENT_BODY \n </comment-body>"
+fi
+
 echo "$COMMENT_BODY" | grep -q "${INPUT_TRIGGER_PHRASE}" || no_trigger
 
 # skip if not a PR
@@ -65,4 +69,4 @@ echo "::set-output name=SHA::${HEAD_SHA}"
 echo "::set-output name=BRANCH_NAME::${HEAD_BRANCH}"
 echo "::set-output name=PR_NUMBER::${PR_NUMBER}"
 echo "::set-output name=COMMENTER_HANDLE::${GH_USER_HANDLE}"
-echo "::set-output name=COMMENT_BODY::${COMMENT_BODY}"
+echo "::set-output name=triggered::true"
