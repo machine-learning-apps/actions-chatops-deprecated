@@ -5,7 +5,7 @@ LABEL "com.github.actions.description"="Enables ChatOps by listening for specifi
 LABEL "com.github.actions.icon"="message-square"
 LABEL "com.github.actions.color"="gray-dark"
 
-RUN apk --no-cache add jq bash curl git
+RUN apk --no-cache add jq bash curl
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod u+x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
