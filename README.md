@@ -1,3 +1,5 @@
+# This Action Has Been Deprecated In Favor Of https://github.com/machine-learning-apps/actions-chatops
+
 ![Actions Status](https://github.com/machine-learning-apps/actions-chatops/workflows/Tests/badge.svg)
 
 # Trigger Actions With ChatOps (Comments In a PR)
